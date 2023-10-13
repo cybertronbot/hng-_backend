@@ -21,23 +21,23 @@ const ResourcesDetails = ({ resources }) => {
     <div className="workout-details">
       <h4>{resources.title}</h4>
       <p>
-        <strong>Load (kg): </strong>
+      
         {resources.name}
       </p>
       <p>
-        <strong>Number of reps: </strong>
+     
         {resources.role}
       </p>
       <p>
-        <strong>Number of reps: </strong>
+
         {resources.company}
       </p>
       <p>
-        <strong>Number of reps: </strong>
+
         {resources.ratings}
       </p>
       <p>
-        <strong>Number of reps: </strong>
+ 
         {resources.reviews}
       </p>
       <p>
