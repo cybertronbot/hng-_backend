@@ -1,14 +1,14 @@
 const Resources = require('../models/resources')
 const mongoose = require('mongoose')
 
-// get all resources
+
 const getResources = async (req, res) => {
   const resources = await Resources.find({}).sort({createdAt: -1})
 
   res.status(200).json(resources)
 }
 
-// get a resources
+
 const getResource = async (req, res) => {
   const { id } = req.params
 
@@ -25,7 +25,7 @@ const getResource = async (req, res) => {
   res.status(200).json(resources)
 }
 
-// create a new workout
+
 const createResources = async (req, res) => {
   const {title, name, role,company,ratings,reviews} = req.body
 
@@ -53,7 +53,7 @@ const createResources = async (req, res) => {
     return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
   }
 
-  // add to the database
+
   try {
     const resources = await Resources.create({ title, name, role,company,ratings,reviews })
     res.status(200).json(resources)
@@ -62,7 +62,6 @@ const createResources = async (req, res) => {
   }
 }
 
-// delete a workout
 const deleteResources = async (req, res) => {
   const { id } = req.params
 
@@ -79,7 +78,7 @@ const deleteResources = async (req, res) => {
   res.status(200).json(resources)
 }
 
-// update a workout
+
 const updateResources = async (req, res) => {
   const { id } = req.params
 
