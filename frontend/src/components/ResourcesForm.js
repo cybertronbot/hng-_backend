@@ -16,7 +16,7 @@ const ResourcesForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resources = {title, name, role,company,ratings,reviews};
+    const resources = { title, name, role, company, ratings, reviews };
 
     const response = await fetch("/api/resources", {
       method: "POST",
@@ -46,16 +46,14 @@ const ResourcesForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      
-
-   
+      <label>Title:</label>
       <input
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
         className={emptyFields.includes("title") ? "error" : ""}
       />
-
+      <label>Name:</label>
       <input
         type="text"
         onChange={(e) => setName(e.target.value)}
@@ -63,28 +61,28 @@ const ResourcesForm = () => {
         className={emptyFields.includes("name") ? "error" : ""}
       />
 
-     
+      <label>Role:</label>
       <input
         type="text"
         onChange={(e) => setRole(e.target.value)}
         value={role}
         className={emptyFields.includes("role") ? "error" : ""}
       />
-    
+      <label>Company:</label>
       <input
         type="text"
         onChange={(e) => setCompany(e.target.value)}
         value={company}
         className={emptyFields.includes("company") ? "error" : ""}
       />
- 
+      <label>Rating:</label>
       <input
         type="number"
         onChange={(e) => setRatings(e.target.value)}
         value={ratings}
         className={emptyFields.includes("ratings") ? "error" : ""}
       />
-      
+      <label>Review:</label>
       <input
         type="number"
         onChange={(e) => setReviews(e.target.value)}
