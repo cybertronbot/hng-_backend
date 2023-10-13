@@ -7,11 +7,23 @@ const resourcesSchema = new Schema({
     type: String,
     required: true
   },
-  reps: {
+  name: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true
+  },
+  company: {
+    type: String,
+    required: true
+  },
+  ratings: {
     type: Number,
     required: true
   },
-  load: {
+  reviews: {
     type: Number,
     required: true
   }

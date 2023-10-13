@@ -5,15 +5,18 @@ const ResourcesForm = () => {
   const { dispatch } = useResourcesContext();
 
   const [title, setTitle] = useState("");
-  const [load, setLoad] = useState("");
-  const [reps, setReps] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [company, setCompany] = useState("");
+  const [ratings, setRatings] = useState("");
+  const [reviews, setReviews] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resources = { title, load, reps };
+    const resources = {title, name, role,company,ratings,reviews};
 
     const response = await fetch("/api/resources", {
       method: "POST",
@@ -32,17 +35,20 @@ const ResourcesForm = () => {
       setEmptyFields([]);
       setError(null);
       setTitle("");
-      setLoad("");
-      setReps("");
+      setName("");
+      setRole("");
+      setCompany("");
+      setRatings("");
+      setReviews("");
       dispatch({ type: "CREATE_RESOURCES", payload: json });
     }
   };
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Workout</h3>
+      
 
-      <label>Excersize Title:</label>
+   
       <input
         type="text"
         onChange={(e) => setTitle(e.target.value)}
@@ -50,20 +56,40 @@ const ResourcesForm = () => {
         className={emptyFields.includes("title") ? "error" : ""}
       />
 
-      <label>Load (in kg):</label>
       <input
-        type="number"
-        onChange={(e) => setLoad(e.target.value)}
-        value={load}
-        className={emptyFields.includes("load") ? "error" : ""}
+        type="text"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        className={emptyFields.includes("name") ? "error" : ""}
       />
 
-      <label>Number of Reps:</label>
+     
+      <input
+        type="text"
+        onChange={(e) => setRole(e.target.value)}
+        value={role}
+        className={emptyFields.includes("role") ? "error" : ""}
+      />
+    
+      <input
+        type="text"
+        onChange={(e) => setCompany(e.target.value)}
+        value={company}
+        className={emptyFields.includes("company") ? "error" : ""}
+      />
+ 
       <input
         type="number"
-        onChange={(e) => setReps(e.target.value)}
-        value={reps}
-        className={emptyFields.includes("reps") ? "error" : ""}
+        onChange={(e) => setRatings(e.target.value)}
+        value={ratings}
+        className={emptyFields.includes("ratings") ? "error" : ""}
+      />
+      
+      <input
+        type="number"
+        onChange={(e) => setReviews(e.target.value)}
+        value={reviews}
+        className={emptyFields.includes("reviews") ? "error" : ""}
       />
 
       <button>Add Workout</button>

@@ -22,11 +22,23 @@ const ResourcesDetails = ({ resources }) => {
       <h4>{resources.title}</h4>
       <p>
         <strong>Load (kg): </strong>
-        {resources.load}
+        {resources.name}
       </p>
       <p>
         <strong>Number of reps: </strong>
-        {resources.reps}
+        {resources.role}
+      </p>
+      <p>
+        <strong>Number of reps: </strong>
+        {resources.company}
+      </p>
+      <p>
+        <strong>Number of reps: </strong>
+        {resources.ratings}
+      </p>
+      <p>
+        <strong>Number of reps: </strong>
+        {resources.reviews}
       </p>
       <p>
         {formatDistanceToNow(new Date(resources.createdAt), {

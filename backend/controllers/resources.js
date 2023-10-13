@@ -27,18 +27,27 @@ const getResource = async (req, res) => {
 
 // create a new workout
 const createResources = async (req, res) => {
-  const {title, load, reps} = req.body
+  const {title, name, role,company,ratings,reviews} = req.body
 
   let emptyFields = []
 
   if (!title) {
     emptyFields.push('title')
   }
-  if (!load) {
-    emptyFields.push('load')
+  if (!name) {
+    emptyFields.push('name')
   }
-  if (!reps) {
-    emptyFields.push('reps')
+  if (!role) {
+    emptyFields.push('role')
+  }
+  if (!company) {
+    emptyFields.push('company')
+  }
+  if (!ratings) {
+    emptyFields.push('ratings')
+  }
+  if (!reviews) {
+    emptyFields.push('reviews')
   }
   if (emptyFields.length > 0) {
     return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
@@ -46,7 +55,7 @@ const createResources = async (req, res) => {
 
   // add to the database
   try {
-    const resources = await Resources.create({ title, load, reps })
+    const resources = await Resources.create({ title, name, role,company,ratings,reviews })
     res.status(200).json(resources)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -58,13 +67,13 @@ const deleteResources = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({error: 'No such workout'})
+    return res.status(400).json({error: 'No such resources'})
   }
 
   const resources = await Resources.findOneAndDelete({_id: id})
 
   if(!resources) {
-    return res.status(400).json({error: 'No such workout'})
+    return res.status(400).json({error: 'No such resources'})
   }
 
   res.status(200).json(resources)
