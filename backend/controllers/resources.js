@@ -24,7 +24,7 @@ const getResource = async (req, res) => {
 };
 
 const createResources = async (req, res) => {
-  const { title, name, role, company, ratings, reviews, currency, price } =
+  const { title, name, role, company, ratings, reviews, currency, price, coursetype,category} =
     req.body;
 
   let emptyFields = [];
@@ -53,6 +53,12 @@ const createResources = async (req, res) => {
   if (!price) {
     emptyFields.push("price");
   }
+  if (!coursetype) {
+    emptyFields.push("coursetype");
+  }
+  if (!category) {
+    emptyFields.push("category");
+  }
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -69,6 +75,8 @@ const createResources = async (req, res) => {
       reviews,
       currency,
       price,
+      coursetype,
+      category
     });
     res.status(200).json(resources);
   } catch (error) {

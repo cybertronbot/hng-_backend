@@ -35,6 +35,14 @@ const resourcesSchema = new Schema({
     type: Number,
     required: true
   },
+  coursetype: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
 }, { timestamps: true })
 
 module.exports = mongoose.model('Resources', resourcesSchema)
