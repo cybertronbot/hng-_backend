@@ -26,7 +26,15 @@ const resourcesSchema = new Schema({
   reviews: {
     type: Number,
     required: true
-  }
+  },
+  currency: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
 }, { timestamps: true })
 
 module.exports = mongoose.model('Resources', resourcesSchema)

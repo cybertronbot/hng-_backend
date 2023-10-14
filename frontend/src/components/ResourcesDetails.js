@@ -36,6 +36,14 @@ const ResourcesDetails = ({ resources }) => {
         {resources.reviews}
       </p>
       <p>
+ 
+        {resources.currrency}
+      </p>
+      <p>
+ 
+        {resources.price}
+      </p>
+      <p>
         {formatDistanceToNow(new Date(resources.createdAt), {
           addSuffix: true,
         })}
