@@ -43,6 +43,10 @@ const resourcesSchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
 }, { timestamps: true })
 
 module.exports = mongoose.model('Resources', resourcesSchema)
