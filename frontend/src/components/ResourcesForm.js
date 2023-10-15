@@ -77,7 +77,7 @@ const ResourcesForm = () => {
 
     formData.append("file", file);
 
-    const response = await fetch("/api/resources", {
+    const response = await fetch("https://hngmentorme.onrender.com/api/resources", {
       method: "POST",
       body: formData,
     });
