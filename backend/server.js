@@ -7,6 +7,7 @@ const resourcesRoutes = require('./routes/resources')
 const scheduleRoutes = require('./routes/schedule')
 const freesessionRoutes = require('./routes/freesession')
 const oneoffsessionRoutes = require('./routes/oneoffsession')
+const recurringRoutes = require('./routes/recurringsession')
 
 const app = express()
 
@@ -25,6 +26,8 @@ app.use('/api/resources', resourcesRoutes)
 app.use('/api/schedule',scheduleRoutes)
 app.use('/api/free-session',freesessionRoutes)
 app.use('/api/one-off-session',oneoffsessionRoutes)
+app.use('/api/one-off-session',oneoffsessionRoutes)
+app.use('/api/recurring-session',recurringRoutes)
 
 
 
