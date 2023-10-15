@@ -47,8 +47,8 @@ const resourcesSchema = new Schema({
     type: String,
     required: true
   },
-  image: {
-    type: Object,
+  imageUrl: {
+    type: String, 
     required: true
   },
 }, { timestamps: true })

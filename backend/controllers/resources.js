@@ -1,5 +1,22 @@
 const Resources = require("../models/resources");
+const uuid = require('uuid');
 const mongoose = require("mongoose");
+const multer = require('multer');
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: 'dfxu5hvrw', 
+  api_key: '235297942498392', 
+  api_secret: '-N970A8IobIZ-n_KrHlkOeK7mmY' 
+});
+
+
+const upload = multer({
+  storage: multer.memoryStorage(), 
+  limits: {
+    fileSize: 5 * 1024 * 1024, 
+  },
+});
 
 const getResources = async (req, res) => {
   const resources = await Resources.find({}).sort({ createdAt: -1 });
@@ -24,8 +41,9 @@ const getResource = async (req, res) => {
 };
 
 const createResources = async (req, res) => {
-  const { title, name, role, company, ratings, reviews, currency, price, coursetype,category,description,image} =
+  const { title, name, role, company, ratings, reviews, currency, price, coursetype,category,description} =
     req.body;
+    const contentImageBuffer = req.file.buffer;
 
   let emptyFields = [];
 
@@ -62,9 +80,6 @@ const createResources = async (req, res) => {
   if (!description) {
     emptyFields.push("description");
   }
-  if (!image) {
-    emptyFields.push("image");
-  }
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -72,6 +87,29 @@ const createResources = async (req, res) => {
   }
 
   try {
+
+    const contentImageString = contentImageBuffer.toString('base64')
+    const contentImageDataUri = `data:${req.file.mimetype};base64,${contentImageBuffer.toString('base64')}`
+    // Upload the image to Cloudinary
+    const result = await cloudinary.uploader.upload(contentImageDataUri, 
+      {
+        resource_type: 'auto',
+        public_id: `picture/${uuid.v4()}`,
+        file: contentImageString
+      },
+      (error, result) => {
+        if (error) {
+          console.error('Error uploading image to Cloudinary:', error);
+          return res.status(500).json({ error: 'Something went wrong' });
+          
+        }
+
+        console.log(result)
+        return result
+      });
+    
+
+  
     const resources = await Resources.create({
       title,
       name,
@@ -84,13 +122,16 @@ const createResources = async (req, res) => {
       coursetype,
       category,
       description,
-      image
+      imageUrl: result.secure_url,
     });
     res.status(200).json(resources);
   } catch (error) {
     res.status(400).json({ error: error.message });
+    console.log(error)
+    console.log(contentImageBuffer)
+    console.log(req.body)
   }
-};
+  }
 
 const deleteResources = async (req, res) => {
   const { id } = req.params;
@@ -135,4 +176,5 @@ module.exports = {
   createResources,
   deleteResources,
   updateResources,
+  upload,
 };
