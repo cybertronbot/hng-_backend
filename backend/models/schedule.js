@@ -19,6 +19,10 @@ const scheduleSchema = new Schema({
     type: String,
     required: true
   },
+  menteeName: {
+    type: String,
+    required: true
+  },
   type: {
     type: String,
     enum: ["Private", "Public"],

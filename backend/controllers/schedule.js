@@ -24,7 +24,7 @@ const getSchedule = async (req, res) => {
 };
 
 const createSchedules = async (req, res) => {
-  const { title, date, time, meetingUrl,type } = req.body;
+  const { title, date, time, meetingUrl,menteeName,type } = req.body;
 
   let emptyFields = [];
 
@@ -39,6 +39,9 @@ const createSchedules = async (req, res) => {
   }
   if (!meetingUrl) {
     emptyFields.push("meetingUrl");
+  }
+  if (!menteeName) {
+    emptyFields.push("menteeName");
   }
   if (!type) {
     emptyFields.push("type");
@@ -56,6 +59,7 @@ const createSchedules = async (req, res) => {
       date,
       time,
       meetingUrl,
+      menteeName,
       type
     });
     res.status(200).json(schedule);
