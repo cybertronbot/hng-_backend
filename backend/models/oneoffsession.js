@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-const freesessionSchema = new Schema({
+const oneoffsessionSchema = new Schema({
     sessionName: {
     type: String,
     required: true
@@ -11,10 +11,7 @@ const freesessionSchema = new Schema({
     type: String,
     required: true
   },
-  attendeesLimit: {
-    type: Number,
-    required: true
-  },
+
   time: {
     type: Number,
     required: true
@@ -28,9 +25,14 @@ const freesessionSchema = new Schema({
     type: String,
     required: true
   },
+  sessionType: {
+    type: String,
+    enum: ["Private", "Public"],
+    required: true
+  }
  
   
  
 }, { timestamps: true })
 
-module.exports = mongoose.model('FreeSession', freesessionSchema)
+module.exports = mongoose.model('OneOffSession', oneoffsessionSchema)
