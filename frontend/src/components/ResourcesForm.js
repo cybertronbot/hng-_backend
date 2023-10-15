@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useResourcesContext } from "../hooks/useResourcesContext";
-import cloudinary from 'cloudinary';
+
 const ResourcesForm = () => {
   const { dispatch } = useResourcesContext();
 
@@ -12,32 +12,78 @@ const ResourcesForm = () => {
   const [reviews, setReviews] = useState("");
   const [currency, setCurrency] = useState("");
   const [price, setPrice] = useState("");
-  const [coursetype, setCourseType] = useState("");
+  const [coursetype, setCoursetype] = useState("");
+  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
-
+  const [file, setFile] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    // Check if the selected file is an image
+    if (selectedFile && selectedFile.type.startsWith("image/")) {
+      setFile(selectedFile);
+    } else {
+      setFile(null);
+      setError("Please select a valid image file (e.g., JPG, PNG, GIF).");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resources = { title, name, role, company, ratings, reviews,currency,price,coursetype,category };
+    if (
+      !title ||
+      !name ||
+      !role ||
+      !company ||
+      !ratings ||
+      !reviews ||
+      !currency ||
+      !price
+    ) {
+      setEmptyFields([
+        "title",
+        "name",
+        "role",
+        "company",
+        "ratings",
+        "reviews",
+        "currency",
+        "price",
+      ]);
+      setError("Please fill in all fields.");
+    }
+
+    if (!file) {
+      setEmptyFields(["file"]);
+      setError("Please select an image file.");
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("name", name);
+    formData.append("role", role);
+    formData.append("company", company);
+    formData.append("ratings", ratings);
+    formData.append("reviews", reviews);
+    formData.append("currency", currency);
+    formData.append("price", price);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("coursetype", coursetype);
+
+    formData.append("file", file);
 
     const response = await fetch("/api/resources", {
       method: "POST",
-      body: JSON.stringify(resources),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      body: formData,
     });
-    const json = await response.json();
 
-    if (!response.ok) {
-      setError(json.error);
-      setEmptyFields(json.emptyFields);
-    }
     if (response.ok) {
+      const json = await response.json();
       setEmptyFields([]);
       setError(null);
       setTitle("");
@@ -48,34 +94,33 @@ const ResourcesForm = () => {
       setReviews("");
       setCurrency("");
       setPrice("");
-      setCourseType("");
+      setCoursetype("");
+      setDescription("");
       setCategory("");
+      setFile(null); //
       dispatch({ type: "CREATE_RESOURCES", payload: json });
+    } else {
+      const json = await response.json();
+      setError(json.error);
+      setEmptyFields(json.emptyFields);
     }
   };
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedImage(file);
-  };
-  cloudinary.config({
-    cloud_name: 'your_cloud_name',
-  });  
+
   return (
     <form className="create" onSubmit={handleSubmit}>
-      
       <label>Title:</label>
       <input
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-        className={emptyFields.includes("title") ? "error" : ""}
+        className={emptyFields?.includes("title") ? "error" : ""}
       />
       <label>Name:</label>
       <input
         type="text"
         onChange={(e) => setName(e.target.value)}
         value={name}
-        className={emptyFields.includes("name") ? "error" : ""}
+        className={emptyFields?.includes("name") ? "error" : ""}
       />
 
       <label>Role:</label>
@@ -83,64 +128,75 @@ const ResourcesForm = () => {
         type="text"
         onChange={(e) => setRole(e.target.value)}
         value={role}
-        className={emptyFields.includes("role") ? "error" : ""}
+        className={emptyFields?.includes("role") ? "error" : ""}
       />
       <label>Company:</label>
       <input
         type="text"
         onChange={(e) => setCompany(e.target.value)}
         value={company}
-        className={emptyFields.includes("company") ? "error" : ""}
+        className={emptyFields?.includes("company") ? "error" : ""}
       />
       <label>Rating:</label>
       <input
         type="number"
         onChange={(e) => setRatings(e.target.value)}
         value={ratings}
-        className={emptyFields.includes("ratings") ? "error" : ""}
+        className={emptyFields?.includes("ratings") ? "error" : ""}
       />
       <label>Review:</label>
       <input
         type="number"
         onChange={(e) => setReviews(e.target.value)}
         value={reviews}
-        className={emptyFields.includes("reviews") ? "error" : ""}
+        className={emptyFields?.includes("reviews") ? "error" : ""}
       />
       <label>Currency:</label>
       <input
         type="text"
         onChange={(e) => setCurrency(e.target.value)}
         value={currency}
-        className={emptyFields.includes("currency") ? "error" : ""}
+        className={emptyFields?.includes("currency") ? "error" : ""}
       />
       <label>Price:</label>
       <input
         type="number"
         onChange={(e) => setPrice(e.target.value)}
         value={price}
-        className={emptyFields.includes("price") ? "error" : ""}
+        className={emptyFields?.includes("price") ? "error" : ""}
       />
-      <label>Course Type:</label>
+      <label>Coursetype:</label>
       <input
         type="text"
-        onChange={(e) => setCourseType(e.target.value)}
+        onChange={(e) => setCoursetype(e.target.value)}
         value={coursetype}
-        className={emptyFields.includes("coursetype") ? "error" : ""}
+        className={emptyFields?.includes("coursetype") ? "error" : ""}
       />
-      <label>Category:</label>
+      <label>category:</label>
       <input
         type="text"
         onChange={(e) => setCategory(e.target.value)}
         value={category}
-        className={emptyFields.includes("category") ? "error" : ""}
+        className={emptyFields?.includes("category") ? "error" : ""}
       />
-<label>Image:</label>
-<input
-  type="file"
-  accept="image/*"
-  onChange={handleImageChange}
-/>
-      <button>Add Workout</button>
+      <label>Description:</label>
+      <input
+        type="text"
+        onChange={(e) => setDescription(e.target.value)}
+        value={description}
+        className={emptyFields?.includes("description") ? "error" : ""}
+      />
+
+      <label>Image:</label>
+
+      <input
+        type="file"
+        accept="image/*"
+        name="file"
+        onChange={handleFileChange}
+      />
+
+      <button>Add Resources</button>
       {error && <div className="error">{error}</div>}
     </form>
   );
