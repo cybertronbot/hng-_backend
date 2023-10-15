@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useResourcesContext } from "../hooks/useResourcesContext";
-
+import cloudinary from 'cloudinary';
 const ResourcesForm = () => {
   const { dispatch } = useResourcesContext();
 
@@ -12,13 +12,17 @@ const ResourcesForm = () => {
   const [reviews, setReviews] = useState("");
   const [currency, setCurrency] = useState("");
   const [price, setPrice] = useState("");
+  const [coursetype, setCourseType] = useState("");
+  const [category, setCategory] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resources = { title, name, role, company, ratings, reviews,currency,price };
+    const resources = { title, name, role, company, ratings, reviews,currency,price,coursetype,category };
 
     const response = await fetch("/api/resources", {
       method: "POST",
@@ -44,12 +48,21 @@ const ResourcesForm = () => {
       setReviews("");
       setCurrency("");
       setPrice("");
+      setCourseType("");
+      setCategory("");
       dispatch({ type: "CREATE_RESOURCES", payload: json });
     }
   };
-
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+  };
+  cloudinary.config({
+    cloud_name: 'your_cloud_name',
+  });  
   return (
     <form className="create" onSubmit={handleSubmit}>
+      
       <label>Title:</label>
       <input
         type="text"
@@ -107,7 +120,26 @@ const ResourcesForm = () => {
         value={price}
         className={emptyFields.includes("price") ? "error" : ""}
       />
-
+      <label>Course Type:</label>
+      <input
+        type="text"
+        onChange={(e) => setCourseType(e.target.value)}
+        value={coursetype}
+        className={emptyFields.includes("coursetype") ? "error" : ""}
+      />
+      <label>Category:</label>
+      <input
+        type="text"
+        onChange={(e) => setCategory(e.target.value)}
+        value={category}
+        className={emptyFields.includes("category") ? "error" : ""}
+      />
+<label>Image:</label>
+<input
+  type="file"
+  accept="image/*"
+  onChange={handleImageChange}
+/>
       <button>Add Workout</button>
       {error && <div className="error">{error}</div>}
     </form>

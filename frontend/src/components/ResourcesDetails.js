@@ -44,6 +44,14 @@ const ResourcesDetails = ({ resources }) => {
         {resources.price}
       </p>
       <p>
+ 
+        {resources.coursetype}
+      </p>
+      <p>
+ 
+        {resources.category}
+      </p>
+      <p>
         {formatDistanceToNow(new Date(resources.createdAt), {
           addSuffix: true,
         })}

@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const resourcesRoutes = require('./routes/resources')
+const scheduleRoutes = require('./routes/schedule')
 
 const app = express()
 
@@ -19,6 +20,8 @@ app.use((req, res, next) => {
 
 
 app.use('/api/resources', resourcesRoutes)
+app.use('/api/schedule',scheduleRoutes)
+
 
 
 mongoose.connect(process.env.MONGO_URI)
