@@ -16,7 +16,7 @@ const freesessionSchema = new Schema({
     required: true
   },
   time: {
-    type: Number,
+    type: String,
     required: true
   },
   date: {

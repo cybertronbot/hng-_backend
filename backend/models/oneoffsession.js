@@ -13,7 +13,7 @@ const oneoffsessionSchema = new Schema({
   },
 
   time: {
-    type: Number,
+    type: String,
     required: true
   },
   date: {
