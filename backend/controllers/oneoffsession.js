@@ -29,7 +29,7 @@ const createOneOffSessions = async (req, res) => {
   let emptyFields = [];
 
   if (!sessionName) {
-    emptyFields.push("description");
+    emptyFields.push("sessionName");
   }
   if (!description) {
     emptyFields.push("description");
