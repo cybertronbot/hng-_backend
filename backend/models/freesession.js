@@ -20,7 +20,7 @@ const freesessionSchema = new Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: String,
     required: true
   },
  
@@ -28,6 +28,18 @@ const freesessionSchema = new Schema({
     type: String,
     required: true
   },
+  sessionUrl:{
+  type: String,
+  required: true
+},
+tag: {
+  type: String,
+  required: true
+},
+duration: {
+  type: Number,
+  required: true
+},
  
   
  

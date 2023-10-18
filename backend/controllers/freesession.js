@@ -24,7 +24,17 @@ const getFreeSession = async (req, res) => {
 };
 
 const createFreeSessions = async (req, res) => {
-  const { sessionName,description, attendeesLimit, time, date, relevantTopics } = req.body;
+  const {
+    sessionName,
+    description,
+    attendeesLimit,
+    time,
+    date,
+    relevantTopics,
+    sessionUrl,
+    tag,
+    duration,
+  } = req.body;
 
   let emptyFields = [];
 
@@ -47,6 +57,15 @@ const createFreeSessions = async (req, res) => {
   if (!relevantTopics) {
     emptyFields.push("relevantTopics");
   }
+  if (!sessionUrl) {
+    emptyFields.push("sessionUrl");
+  }
+  if (!tag) {
+    emptyFields.push("tag");
+  }
+  if (!duration) {
+    emptyFields.push("duration");
+  }
 
   if (emptyFields.length > 0) {
     return res
@@ -56,12 +75,15 @@ const createFreeSessions = async (req, res) => {
 
   try {
     const freesession = await FreeSession.create({
-        sessionName,
+      sessionName,
       description,
       attendeesLimit,
       time,
       date,
       relevantTopics,
+      sessionUrl,
+      tag,
+      duration,
     });
     res.status(200).json(freesession);
   } catch (error) {
