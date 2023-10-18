@@ -17,12 +17,24 @@ const oneoffsessionSchema = new Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: String,
     required: true
   },
  
   relevantTopics: {
     type: String,
+    required: true
+  },
+  sessionUrl: {
+    type: String,
+    required: true
+  },
+  tag: {
+    type: String,
+    required: true
+  },
+  duration: {
+    type: Number,
     required: true
   },
   sessionType: {

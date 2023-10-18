@@ -1,4 +1,4 @@
-const OneOffSession  = require("../models/oneoffsession");
+const OneOffSession = require("../models/oneoffsession");
 const mongoose = require("mongoose");
 
 const getOneOffSessions = async (req, res) => {
@@ -24,7 +24,17 @@ const getOneOffSession = async (req, res) => {
 };
 
 const createOneOffSessions = async (req, res) => {
-  const { sessionName,description,  time, date, relevantTopics,sessionType } = req.body;
+  const {
+    sessionName,
+    description,
+    time,
+    date,
+    relevantTopics,
+    sessionUrl,
+    tag,
+    duration,
+    sessionType,
+  } = req.body;
 
   let emptyFields = [];
 
@@ -34,18 +44,28 @@ const createOneOffSessions = async (req, res) => {
   if (!description) {
     emptyFields.push("description");
   }
-  
+
   if (!time) {
     emptyFields.push("time");
   }
   if (!date) {
     emptyFields.push("date");
-  }  if (!sessionType) {
+  }
+  if (!sessionType) {
     emptyFields.push("sessionType");
   }
 
   if (!relevantTopics) {
     emptyFields.push("relevantTopics");
+  }
+  if (!sessionUrl) {
+    emptyFields.push("sessionUrl");
+  }
+  if (!tag) {
+    emptyFields.push("tag");
+  }
+  if (!duration) {
+    emptyFields.push("duration");
   }
 
   if (emptyFields.length > 0) {
@@ -56,13 +76,15 @@ const createOneOffSessions = async (req, res) => {
 
   try {
     const oneoffsession = await OneOffSession.create({
-        sessionName,
+      sessionName,
       description,
-     
       time,
       date,
       relevantTopics,
-      sessionType
+      sessionUrl,
+      tag,
+      duration,
+      sessionType,
     });
     res.status(200).json(oneoffsession);
   } catch (error) {
