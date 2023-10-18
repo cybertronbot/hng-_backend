@@ -29,8 +29,24 @@ const recurringSchema = new Schema({
     type: String,
     enum: ["Private", "Public"],
     required: true
-  }
- 
+  },
+  time: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: String,
+    required: true
+  },
+  sessionUrl:{
+    type: String,
+    required: true
+  },
+  tag: {
+    type: String,
+    required: true
+  },
+  
   
  
 }, { timestamps: true })

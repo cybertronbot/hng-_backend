@@ -33,6 +33,10 @@ const createRecurringSessions = async (req, res) => {
     numberOfSession,
     relevantTopics,
     sessionType,
+    time,
+    date,
+    sessionUrl,
+    tag,
   } = req.body;
 
   let emptyFields = [];
@@ -57,6 +61,18 @@ const createRecurringSessions = async (req, res) => {
   if (!relevantTopics) {
     emptyFields.push("relevantTopics");
   }
+  if (!time) {
+    emptyFields.push("time");
+  }
+  if (!date) {
+    emptyFields.push("date");
+  }
+    if (!sessionUrl) {
+    emptyFields.push("sessionUrl");
+  }
+  if (!tag) {
+    emptyFields.push("tag");
+  }
 
   if (emptyFields.length > 0) {
     return res
@@ -72,6 +88,10 @@ const createRecurringSessions = async (req, res) => {
       numberOfSession,
       relevantTopics,
       sessionType,
+      time,
+      date,
+      sessionUrl,
+      tag,
     });
     res.status(200).json(recurringsession);
   } catch (error) {
