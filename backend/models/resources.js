@@ -35,7 +35,7 @@ const resourcesSchema = new Schema({
     type: Number,
     required: true
   },
-  coursetype: {
+ track: {
     type: String,
     required: true
   },
