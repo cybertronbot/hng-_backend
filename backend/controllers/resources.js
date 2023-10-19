@@ -80,6 +80,7 @@ const createResources = async (req, res) => {
   if (!description) {
     emptyFields.push("description");
   }
+ 
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -123,6 +124,7 @@ const createResources = async (req, res) => {
       category,
       description,
       imageUrl: result.secure_url,
+    
     });
     res.status(200).json(resources);
   } catch (error) {

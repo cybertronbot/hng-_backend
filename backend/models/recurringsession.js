@@ -27,15 +27,14 @@ const recurringSchema = new Schema({
   },
   sessionType: {
     type: String,
-    enum: ["Private", "Public"],
-    required: true
+   required: true
   },
   time: {
     type: String,
     required: true
   },
   date: {
-    type: String,
+    type: Date,
     required: true
   },
   sessionUrl:{

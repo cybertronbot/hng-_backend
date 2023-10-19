@@ -17,7 +17,7 @@ const oneoffsessionSchema = new Schema({
     required: true
   },
   date: {
-    type: String,
+    type: Date,
     required: true
   },
  
@@ -39,7 +39,6 @@ const oneoffsessionSchema = new Schema({
   },
   sessionType: {
     type: String,
-    enum: ["Private", "Public"],
     required: true
   }
  
