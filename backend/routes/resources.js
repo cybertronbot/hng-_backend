@@ -5,8 +5,8 @@ const {
   createResources, 
   deleteResources, 
   updateResources,
-  upload,
-  fields
+  //upload,
+  //fields
 } = require('../controllers/resources')
 
 const router = express.Router()
@@ -17,7 +17,7 @@ router.get('/', getResources)
 router.get('/:id', getResource)
 
 
-router.post('/', upload.fields(fields), createResources)
+router.post('/', createResources)
 
 
 router.delete('/:id', deleteResources)
