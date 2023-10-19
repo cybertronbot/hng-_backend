@@ -52,7 +52,7 @@ const getResource = async (req, res) => {
 };
 
 const createResources = async (req, res) => {
-  const { title, name, role, company, ratings, reviews, currency, price, coursetype, category, description,courseContents } =
+  const { title, name, role, company, ratings, reviews, currency, price, track, category, description,courseContents } =
     req.body;
   
   const imageBuffer = req.files.image[0].buffer;
@@ -98,8 +98,8 @@ const createResources = async (req, res) => {
   if (!price) {
     emptyFields.push("price");
   }
-  if (!coursetype) {
-    emptyFields.push("coursetype");
+  if (!track) {
+    emptyFields.push("track");
   }
   if (!category) {
     emptyFields.push("category");
@@ -141,7 +141,7 @@ const createResources = async (req, res) => {
       reviews,
       currency,
       price,
-      coursetype,
+      track,
       category,
       description,
       courseContents,
