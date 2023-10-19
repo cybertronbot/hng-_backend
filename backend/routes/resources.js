@@ -16,7 +16,7 @@ router.get('/', getResources)
 router.get('/:id', getResource)
 
 
-router.post('/', upload.fields('fields'), createResources)
+router.post('/', upload.single('file'), createResources)
 
 
 router.delete('/:id', deleteResources)
