@@ -52,11 +52,25 @@ const getResource = async (req, res) => {
 };
 
 const createResources = async (req, res) => {
-  const { title, name, role, company, ratings, reviews, currency, price, coursetype, category, description } =
+  const { title, name, role, company, ratings, reviews, currency, price, coursetype, category, description,courseContents } =
     req.body;
   
   const imageBuffer = req.files.image[0].buffer;
   const videoBuffer = req.files.video[0].buffer;
+
+
+
+  if (courseContents && Array.isArray(courseContents)) {
+    req.body.courseContents = courseContents.map(courseContent => {
+      return {
+        id: courseContent.id,
+        title: courseContent.title,
+        duration: courseContent.duration,
+      };
+    });
+  } else {
+    req.body.courseContents = [];
+  }
 
    let emptyFields = [];
 
@@ -130,6 +144,7 @@ const createResources = async (req, res) => {
       coursetype,
       category,
       description,
+      courseContents,
       imageUrl: imageResult.secure_url,
       videoUrl: videoResult.secure_url,
     });

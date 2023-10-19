@@ -48,7 +48,12 @@ const resourcesSchema = new Schema({
     required: true
   },
 
-  
+  courseContents: [{
+    id: String,
+    title: String,
+    duration: Number,
+    required: true
+  }],
   imageUrl: {
     type: String, 
     required: true
