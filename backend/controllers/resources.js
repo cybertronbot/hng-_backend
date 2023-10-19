@@ -11,12 +11,23 @@ cloudinary.config({
 });
 
 
+const storage = multer.memoryStorage();
 const upload = multer({
-  storage: multer.memoryStorage(), 
+  storage,
   limits: {
-    fileSize: 5 * 1024 * 1024, 
+    files: 2, // You can upload up to 2 files (image and video)
+    fileSize: 15 * 1024 * 1024, // Total file size limit (5 MB)
   },
 });
+
+// Move the 'fields' declaration here
+const fields = [
+  { name: 'image', maxCount: 1 }, // Accept 1 image file
+  { name: 'video', maxCount: 1 }, // Accept 1 video file
+];
+
+
+
 
 const getResources = async (req, res) => {
   const resources = await Resources.find({}).sort({ createdAt: -1 });
@@ -41,11 +52,13 @@ const getResource = async (req, res) => {
 };
 
 const createResources = async (req, res) => {
-  const { title, name, role, company, ratings, reviews, currency, price, coursetype,category,description} =
+  const { title, name, role, company, ratings, reviews, currency, price, coursetype, category, description } =
     req.body;
-    const contentImageBuffer = req.file.buffer;
+  
+  const imageBuffer = req.files.image[0].buffer;
+  const videoBuffer = req.files.video[0].buffer;
 
-  let emptyFields = [];
+   let emptyFields = [];
 
   if (!title) {
     emptyFields.push("title");
@@ -80,37 +93,31 @@ const createResources = async (req, res) => {
   if (!description) {
     emptyFields.push("description");
   }
- 
   if (emptyFields.length > 0) {
-    return res
-      .status(400)
-      .json({ error: "Please fill in all fields", emptyFields });
+    console.log(req.body)
   }
 
   try {
+    const imageString = imageBuffer.toString('base64');
+    const videoString = videoBuffer.toString('base64');
 
-    const contentImageString = contentImageBuffer.toString('base64')
-    const contentImageDataUri = `data:${req.file.mimetype};base64,${contentImageBuffer.toString('base64')}`
+    const imageUri = `data:${req.files.image[0].mimetype};base64,${imageString}`;
+    const videoUri = `data:${req.files.video[0].mimetype};base64,${videoString}`;
+
     // Upload the image to Cloudinary
-    const result = await cloudinary.uploader.upload(contentImageDataUri, 
-      {
-        resource_type: 'auto',
-        public_id: `picture/${uuid.v4()}`,
-        file: contentImageString
-      },
-      (error, result) => {
-        if (error) {
-          console.error('Error uploading image to Cloudinary:', error);
-          return res.status(500).json({ error: 'Something went wrong' });
-          
-        }
+    const imageResult = await cloudinary.uploader.upload(imageUri, {
+      resource_type: 'auto',
+      public_id: `images/${uuid.v4()}`,
+      file: imageString,
+    });
 
-        console.log(result)
-        return result
-      });
-    
+    // Upload the video to Cloudinary
+    const videoResult = await cloudinary.uploader.upload(videoUri, {
+      resource_type: 'video',
+      public_id: `videos/${uuid.v4()}`,
+      file: videoString,
+    });
 
-  
     const resources = await Resources.create({
       title,
       name,
@@ -123,17 +130,18 @@ const createResources = async (req, res) => {
       coursetype,
       category,
       description,
-      imageUrl: result.secure_url,
-    
+      imageUrl: imageResult.secure_url,
+      videoUrl: videoResult.secure_url,
     });
+
     res.status(200).json(resources);
+    console.log(resources)
   } catch (error) {
     res.status(400).json({ error: error.message });
-    console.log(error)
-    console.log(contentImageBuffer)
     console.log(req.body)
+    console.log(error)
   }
-  }
+};
 
 const deleteResources = async (req, res) => {
   const { id } = req.params;
@@ -179,4 +187,5 @@ module.exports = {
   deleteResources,
   updateResources,
   upload,
+  fields,
 };
