@@ -49,6 +49,8 @@ const createResources = async (req, res) => {
     Duration1,
     Duration2,
     Duration3,
+    Duration4,
+    Duration5,
     imageUrl,
     videoUrl,
 
