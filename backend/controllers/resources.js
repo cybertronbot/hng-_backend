@@ -39,9 +39,13 @@ const createResources = async (req, res) => {
     Id1,
     Id2,
     Id3,
+    Id4,
+    Id5,
     Title1,
     Title2,
     Title3,
+    Title4,
+    Title5,
     Duration1,
     Duration2,
     Duration3,
@@ -129,6 +133,18 @@ const createResources = async (req, res) => {
             id:Id3,
             titlee:Title3,
             duration:Duration3,
+       
+        },
+         {
+            id:Id4,
+            titlee:Title4,
+            duration:Duration4,
+       
+        },
+         {
+            id:Id5,
+            titlee:Title5,
+            duration:Duration5,
        
         },
       ],

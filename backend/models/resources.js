@@ -65,6 +65,17 @@ const resourcesSchema = new Schema(
         titlee:  String, 
         duration:  Number
       },
+      {
+        id:  String,
+        titlee:  String, 
+        duration:  Number
+      },
+      {
+        id:  String,
+        titlee:  String, 
+        duration:  Number
+      },
+      
     ],
 
 
