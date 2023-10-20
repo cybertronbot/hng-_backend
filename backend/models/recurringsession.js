@@ -49,7 +49,7 @@ const recurringSchema = new Schema(
         sessionState: {
             type: String,
             enum: ["Pending", "Cancelled"],
-            required: true,
+            required: false,
          
         },
     },
