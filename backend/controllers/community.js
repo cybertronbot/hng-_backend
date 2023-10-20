@@ -2,7 +2,7 @@ const Community = require("../models/community");
 const mongoose = require("mongoose");
 
 const getCommunityy = async (req, res) => {
-  const community = await community.find({}).sort({ createdAt: -1 });
+  const community = await Community.find({}).sort({ createdAt: -1 });
 
   res.status(200).json(community);
 };
