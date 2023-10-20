@@ -27,7 +27,7 @@ const communitySchema = new Schema(
         imageUrl: String,
       },
     ],
-    discssions: [
+    discussion: [
       {
         id: String,
         topic: String,
