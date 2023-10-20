@@ -36,9 +36,15 @@ const createResources = async (req, res) => {
     track,
     category,
     description,
-    id,
-    Title,
-    Duration,
+    Id1,
+    Id2,
+    Id3,
+    Title1,
+    Title2,
+    Title3,
+    Duration1,
+    Duration2,
+    Duration3,
     imageUrl,
     videoUrl,
 
@@ -108,9 +114,21 @@ const createResources = async (req, res) => {
       description,
       courseContents: [
         {
-            id,
-            titlee:Title,
-            duration:Duration,
+            id:Id1,
+            titlee:Title1,
+            duration:Duration1,
+       
+        },
+        {
+          id:Id2,
+          titlee:Title2,
+          duration:Duration2,
+     
+      },
+         {
+            id:Id3,
+            titlee:Title3,
+            duration:Duration3,
        
         },
       ],
