@@ -33,12 +33,13 @@ const createResources = async (req, res) => {
     reviews,
     currency,
     price,
-    coursetype,
+    track,
     category,
     description,
     
     imageUrl,
     videoUrl,
+
   } = req.body;
   
   let emptyFields = [];
@@ -67,8 +68,8 @@ const createResources = async (req, res) => {
   if (!price) {
     emptyFields.push("price");
   }
-  if (!coursetype) {
-    emptyFields.push("coursetype");
+  if (!track) {
+    emptyFields.push("track");
   }
   if (!category) {
     emptyFields.push("category");
@@ -82,6 +83,7 @@ const createResources = async (req, res) => {
   if (!videoUrl) {
     emptyFields.push("videoUrl");
   }
+  
   
   if (emptyFields.length > 0) {
     return res
@@ -99,12 +101,13 @@ const createResources = async (req, res) => {
       reviews,
       currency,
       price,
-      coursetype,
+      track,
       category,
       description,
    
       imageUrl,
       videoUrl,
+      
     });
     res.status(200).json(resources);
   } catch (error) {
