@@ -39,11 +39,10 @@ const createcommunity = async (req, res) => {
     id,
     Title,
     Duration,
-    imageUrl,
+    ImageUrl,
     videoUrl,
-
   } = req.body;
-  
+
   let emptyFields = [];
 
   if (!title) {
@@ -85,8 +84,7 @@ const createcommunity = async (req, res) => {
   if (!videoUrl) {
     emptyFields.push("videoUrl");
   }
-  
-  
+
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -95,28 +93,33 @@ const createcommunity = async (req, res) => {
 
   try {
     const community = await community.create({
-      title,
+      slug,
       name,
-      role,
-      company,
-      ratings,
-      reviews,
-      currency,
-      price,
-      track,
-      category,
       description,
-      courseContents: [
+      members: [
         {
-            id,
-            titlee:Title,
-            duration:Duration,
-       
+          id,
+          memberName: MemberName,
+          isMentor: IsMentor,
+          about: About,
+          imageUrl: ImageUrl,
         },
       ],
-      imageUrl,
-      videoUrl,
-      
+      discussion: [
+        {
+            id,
+            topic:Topic,
+            discussionPoster: String,
+            note: String,
+        },
+      ],
+      author: [
+        {
+          id,
+          titlee: Title,
+          duration: Duration,
+        },
+      ],
     });
     res.status(200).json(community);
   } catch (error) {

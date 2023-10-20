@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const resourcesSchema = new Schema(
+const communitySchema = new Schema(
   {
     slug: {
       type: String,
@@ -31,7 +31,7 @@ const resourcesSchema = new Schema(
       {
         id: String,
         topic: String,
-        imageUrl: String,
+        discussionPoster: String,
         note: String,
       },
     ],
@@ -47,4 +47,4 @@ const resourcesSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Resources", resourcesSchema);
+module.exports = mongoose.model("Resources", communitySchema);

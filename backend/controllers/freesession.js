@@ -56,9 +56,7 @@ const createFreeSessions = async (req, res) => {
     if (!duration) {
         emptyFields.push("duration");
     }
-    if (!sessionState) {
-        emptyFields.push("sessionState");
-    }
+   
 
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: "Please fill in all fields", emptyFields });

@@ -62,9 +62,7 @@ const createRecurringSessions = async (req, res) => {
     if (!tag) {
         emptyFields.push("tag");
     }
-    if (!sessionState) {
-        emptyFields.push("sessionState");
-    }
+  
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: "Please fill in all fields", emptyFields });
     }
