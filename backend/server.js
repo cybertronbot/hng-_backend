@@ -9,6 +9,7 @@ const freesessionRoutes = require("./routes/freesession");
 const oneoffsessionRoutes = require("./routes/oneoffsession");
 const recurringRoutes = require("./routes/recurringsession");
 const upcomingRoutes = require("./routes/upcomingsession");
+const communityRoutes = require("./routes/community");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api/free-session", freesessionRoutes);
 app.use("/api/one-off-session", oneoffsessionRoutes);
 app.use("/api/recurring-session", recurringRoutes);
 app.use("/api/upcoming-session", upcomingRoutes);
+app.use("/api/community", communityRoutes);
 
 mongoose
     .connect(process.env.MONGO_URI)

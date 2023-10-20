@@ -47,4 +47,4 @@ const communitySchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Resources", communitySchema);
+module.exports = mongoose.model("Community", communitySchema);

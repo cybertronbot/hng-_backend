@@ -1,26 +1,26 @@
 const express = require('express')
 const {
-  getCommunities, 
+  getCommunityy, 
   getCommunity, 
-  createCommunities, 
-  deleteCommunities, 
-  updateCommunities
+  createCommunity, 
+  deleteCommunity, 
+  updateCommunity
 } = require('../controllers/community')
 
 const router = express.Router()
 
 
-router.get('/', getCommunities)
+router.get('/', getCommunityy)
 
 router.get('/:id', getCommunity)
 
 
-router.post('/', createCommunities)
+router.post('/', createCommunity)
 
 
-router.delete('/:id', deleteCommunities)
+router.delete('/:id', deleteCommunity)
 
 
-router.patch('/:id', updateCommunities)
+router.patch('/:id', updateCommunity)
 
 module.exports = router

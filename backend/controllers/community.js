@@ -1,20 +1,20 @@
-const community = require("../models/community");
+const Community = require("../models/community");
 const mongoose = require("mongoose");
 
-const getcommunityy = async (req, res) => {
+const getCommunityy = async (req, res) => {
   const community = await community.find({}).sort({ createdAt: -1 });
 
   res.status(200).json(community);
 };
 
-const getcommunity = async (req, res) => {
+const getCommunity = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No community" });
   }
 
-  const community = await community.findById(id);
+  const community = await Community.findById(id);
 
   if (!community) {
     return res.status(404).json({ error: "No community" });
@@ -23,67 +23,27 @@ const getcommunity = async (req, res) => {
   res.status(200).json(community);
 };
 
-const createcommunity = async (req, res) => {
+const createCommunity = async (req, res) => {
   const {
-    title,
+    slug,
     name,
-    role,
-    company,
-    ratings,
-    reviews,
-    currency,
-    price,
-    track,
-    category,
     description,
     id,
-    Title,
-    Duration,
-    ImageUrl,
-    videoUrl,
+    MemberName,
+    IsMentor,
+    About,
+    Note,
+    Topic,
+    Topicc,
+    DiscussionPoster,
+    ProfilePhoto,
+   ImageUrl,
+   Namee,
   } = req.body;
 
   let emptyFields = [];
 
-  if (!title) {
-    emptyFields.push("title");
-  }
-  if (!name) {
-    emptyFields.push("name");
-  }
-  if (!role) {
-    emptyFields.push("role");
-  }
-  if (!company) {
-    emptyFields.push("company");
-  }
-  if (!ratings) {
-    emptyFields.push("ratings");
-  }
-  if (!reviews) {
-    emptyFields.push("reviews");
-  }
-  if (!currency) {
-    emptyFields.push("currency");
-  }
-  if (!price) {
-    emptyFields.push("price");
-  }
-  if (!track) {
-    emptyFields.push("track");
-  }
-  if (!category) {
-    emptyFields.push("category");
-  }
-  if (!description) {
-    emptyFields.push("description");
-  }
-  if (!imageUrl) {
-    emptyFields.push("imageUrl");
-  }
-  if (!videoUrl) {
-    emptyFields.push("videoUrl");
-  }
+  
 
   if (emptyFields.length > 0) {
     return res
@@ -92,7 +52,7 @@ const createcommunity = async (req, res) => {
   }
 
   try {
-    const community = await community.create({
+    const community = await Community.create({
       slug,
       name,
       description,
@@ -107,17 +67,18 @@ const createcommunity = async (req, res) => {
       ],
       discussion: [
         {
-            id,
-            topic:Topic,
-            discussionPoster: String,
-            note: String,
+          id,
+          topic: Topic,
+          discussionPoster: DiscussionPoster,
+          note: Note,
         },
       ],
       author: [
         {
-          id,
-          titlee: Title,
-          duration: Duration,
+          name: Namee,
+          topic: Topicc,
+          profilePhoto: ProfilePhoto,
+          isMentor:IsMentor
         },
       ],
     });
@@ -127,14 +88,14 @@ const createcommunity = async (req, res) => {
   }
 };
 
-const deletecommunity = async (req, res) => {
+const deleteCommunity = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No such community" });
   }
 
-  const community = await community.findOneAndDelete({ _id: id });
+  const community = await Community.findOneAndDelete({ _id: id });
 
   if (!community) {
     return res.status(400).json({ error: "No such community" });
@@ -143,14 +104,14 @@ const deletecommunity = async (req, res) => {
   res.status(200).json(community);
 };
 
-const updatecommunity = async (req, res) => {
+const updateCommunity = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No such community" });
   }
 
-  const community = await community.findOneAndUpdate(
+  const community = await Community.findOneAndUpdate(
     { _id: id },
     {
       ...req.body,
@@ -165,9 +126,9 @@ const updatecommunity = async (req, res) => {
 };
 
 module.exports = {
-  getcommunityy,
-  getcommunity,
-  createcommunity,
-  deletecommunity,
-  updatecommunity,
+  getCommunityy,
+  getCommunity,
+  createCommunity,
+  deleteCommunity,
+  updateCommunity,
 };
