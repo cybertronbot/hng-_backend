@@ -4,9 +4,7 @@ const {
   getResource, 
   createResources, 
   deleteResources, 
-  updateResources,
-  //upload,
-  //fields
+  updateResources
 } = require('../controllers/resources')
 
 const router = express.Router()

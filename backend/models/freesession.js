@@ -44,6 +44,7 @@ const freesessionSchema = new Schema(
         sessionState: {
             type: String,
             enum: ["Pending", "Cancelled"],
+            required: true,
          
         },
     },
