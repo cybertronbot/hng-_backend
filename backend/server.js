@@ -28,7 +28,7 @@ app.use("/api/free-session", freesessionRoutes);
 app.use("/api/one-off-session", oneoffsessionRoutes);
 app.use("/api/recurring-session", recurringRoutes);
 app.use("/api/upcoming-session", upcomingRoutes);
-app.use("/api/community", communityRoutes);
+app.use("/api/forum", communityRoutes);
 
 mongoose
     .connect(process.env.MONGO_URI)
