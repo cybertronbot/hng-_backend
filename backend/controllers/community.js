@@ -1,20 +1,10 @@
 const Community = require("../models/community");
 const mongoose = require("mongoose");
 
-const getCommunityy = async (req, res) => {
-  const community = await Community.find({}).sort({ createdAt: -1 });
-
-  res.status(200).json(community);
-};
-
 const getCommunity = async (req, res) => {
-  const { id } = req.params;
+  const { slug } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No community" });
-  }
-
-  const community = await Community.findById(id);
+  const community = await Community.findOne({ slug }); 
 
   if (!community) {
     return res.status(404).json({ error: "No community" });
@@ -25,7 +15,7 @@ const getCommunity = async (req, res) => {
 
 const createCommunity = async (req, res) => {
   const {
-    slug,
+    slug, 
     name,
     description,
     id,
@@ -37,13 +27,11 @@ const createCommunity = async (req, res) => {
     Topicc,
     DiscussionPoster,
     ProfilePhoto,
-   ImageUrl,
-   Namee,
+    ImageUrl,
+    Namee,
   } = req.body;
 
   let emptyFields = [];
-
-  
 
   if (emptyFields.length > 0) {
     return res
@@ -53,7 +41,7 @@ const createCommunity = async (req, res) => {
 
   try {
     const community = await Community.create({
-      slug,
+      slug, 
       name,
       description,
       members: [
@@ -78,7 +66,7 @@ const createCommunity = async (req, res) => {
           name: Namee,
           topic: Topicc,
           profilePhoto: ProfilePhoto,
-          isMentor:IsMentor
+          isMentor: IsMentor,
         },
       ],
     });
@@ -89,13 +77,9 @@ const createCommunity = async (req, res) => {
 };
 
 const deleteCommunity = async (req, res) => {
-  const { id } = req.params;
+  const { slug } = req.params; 
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "No such community" });
-  }
-
-  const community = await Community.findOneAndDelete({ _id: id });
+  const community = await Community.findOneAndDelete({ slug }); 
 
   if (!community) {
     return res.status(400).json({ error: "No such community" });
@@ -105,14 +89,10 @@ const deleteCommunity = async (req, res) => {
 };
 
 const updateCommunity = async (req, res) => {
-  const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "No such community" });
-  }
+  const { slug } = req.params; 
 
   const community = await Community.findOneAndUpdate(
-    { _id: id },
+    { slug }, 
     {
       ...req.body,
     }
@@ -126,7 +106,6 @@ const updateCommunity = async (req, res) => {
 };
 
 module.exports = {
-  getCommunityy,
   getCommunity,
   createCommunity,
   deleteCommunity,

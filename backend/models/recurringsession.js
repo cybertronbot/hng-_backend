@@ -53,6 +53,12 @@ const recurringSchema = new Schema(
             required: false,
          
         },
+        duration: {
+            type: Number,
+            
+            required: true,
+         
+        },
     },
     { timestamps: true }
 );

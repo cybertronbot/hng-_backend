@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const resourcesSchema = new Schema(
   {
+    mentorId: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -48,36 +52,34 @@ const resourcesSchema = new Schema(
       type: String,
       required: true,
     },
-   
+
     courseContents: [
       {
-        id:  String,
-        titlee:  String, 
-        duration:  Number
+        id: String,
+        titlee: String,
+        duration: Number,
       },
       {
-        id:  String,
-        titlee:  String, 
-        duration:  Number
+        id: String,
+        titlee: String,
+        duration: Number,
       },
       {
-        id:  String,
-        titlee:  String, 
-        duration:  Number
+        id: String,
+        titlee: String,
+        duration: Number,
       },
       {
-        id:  String,
-        titlee:  String, 
-        duration:  Number
+        id: String,
+        titlee: String,
+        duration: Number,
       },
       {
-        id:  String,
-        titlee:  String, 
-        duration:  Number
+        id: String,
+        titlee: String,
+        duration: Number,
       },
-      
     ],
-
 
     imageUrl: {
       type: String,

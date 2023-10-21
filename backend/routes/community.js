@@ -12,15 +12,15 @@ const router = express.Router()
 
 router.get('/', getCommunityy)
 
-router.get('/:id', getCommunity)
+router.get('/:slug', getCommunity)
 
 
 router.post('/', createCommunity)
 
 
-router.delete('/:id', deleteCommunity)
+router.delete('/:slug', deleteCommunity)
 
 
-router.patch('/:id', updateCommunity)
+router.patch('/:slug', updateCommunity)
 
 module.exports = router

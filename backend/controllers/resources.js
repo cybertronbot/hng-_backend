@@ -25,6 +25,7 @@ const getResource = async (req, res) => {
 
 const createResources = async (req, res) => {
   const {
+    mentorId,
     title,
     name,
     role,
@@ -58,6 +59,9 @@ const createResources = async (req, res) => {
   
   let emptyFields = [];
 
+  if (!mentorId) {
+    emptyFields.push("mentorId");
+  }
   if (!title) {
     emptyFields.push("title");
   }
@@ -107,6 +111,7 @@ const createResources = async (req, res) => {
 
   try {
     const resources = await Resources.create({
+      mentorId,
       title,
       name,
       role,

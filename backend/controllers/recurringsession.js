@@ -26,7 +26,7 @@ const getRecurringSession = async (req, res) => {
 };
 
 const createRecurringSessions = async (req, res) => {
-    const { sessionName, description, occurence, numberOfSession, relevantTopics, sessionType, time, date, sessionUrl, tag,sessionState } = req.body;
+    const { sessionName, description, occurence, numberOfSession, relevantTopics, sessionType, time, date, sessionUrl, tag,sessionState,duration } = req.body;
 
     let emptyFields = [];
 
@@ -63,6 +63,17 @@ const createRecurringSessions = async (req, res) => {
         emptyFields.push("tag");
     }
   
+    if (!sessionState) {
+        emptyFields.push("sessionState");
+    }
+    if (!duration) {
+        emptyFields.push("duration");
+    }
+  
+    if (!tag) {
+        emptyFields.push("tag");
+    }
+  
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: "Please fill in all fields", emptyFields });
     }
@@ -79,7 +90,8 @@ const createRecurringSessions = async (req, res) => {
             date,
             sessionUrl,
             tag,
-            sessionState
+            sessionState,
+            duration
         });
         res.status(200).json(recurringsession);
     } catch (error) {
