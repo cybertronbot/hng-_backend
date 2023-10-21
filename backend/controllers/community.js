@@ -10,7 +10,7 @@ const getCommunityy = async (req, res) => {
 const getCommunity = async (req, res) => {
   const { slug } = req.params;
 
-  const community = await Community.findOne({ slug }); 
+  const community = await Community.findOne({ slug });
 
   if (!community) {
     return res.status(404).json({ error: "No community" });
@@ -20,26 +20,9 @@ const getCommunity = async (req, res) => {
 };
 
 const createCommunity = async (req, res) => {
-  const {
-    slug,
-    name,
-    description,
-    id,
-    MemberName,
-    IsMentor,
-    About,
-    Note,
-    Topic,
-    Topicc,
-    DiscussionPoster,
-    ProfilePhoto,
-   ImageUrl,
-   Namee,
-  } = req.body;
+  const { slug, name, description,membersName,memberPresent,memberProfile,discussionTopic,discussionNote,authorName,authorProfile,authorIsMentor,discussionPhoto } = req.body;
 
   let emptyFields = [];
-
-  
 
   if (emptyFields.length > 0) {
     return res
@@ -54,27 +37,25 @@ const createCommunity = async (req, res) => {
       description,
       members: [
         {
-          id,
-          memberName: MemberName,
-          isMentor: IsMentor,
-          about: About,
-          imageUrl: ImageUrl,
+          name: membersName,
+          isMentor: memberPresent,
+
+          profilePhotoUrl: memberProfile,
         },
       ],
       discussion: [
         {
-          id,
-          topic: Topic,
-          discussionPoster: DiscussionPoster,
-          note: Note,
-        },
-      ],
-      author: [
-        {
-          name: Namee,
-          topic: Topicc,
-          profilePhoto: ProfilePhoto,
-          isMentor:IsMentor
+          topic: discussionTopic,
+
+          note: discussionNote,
+
+          author: {
+            name: authorName,
+
+            profilePhotoUrl: authorProfile,
+            isMentor: authorIsMentor,
+          },
+          imageUrl: discussionPhoto,
         },
       ],
     });

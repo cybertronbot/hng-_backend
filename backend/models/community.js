@@ -20,27 +20,25 @@ const communitySchema = new Schema(
 
     members: [
       {
-        id: String,
-        memberName: String,
+        name: String,
         isMentor: Boolean,
-        about: String,
-        imageUrl: String,
+
+        profilePhotoUrl: String,
       },
     ],
     discussion: [
       {
-        id: String,
         topic: String,
-        discussionPoster: String,
+
         note: String,
-      },
-    ],
-    author: [
-      {
-        name: String,
-        topic: String,
-        profilePhoto: String,
-        isMentor: Boolean,
+
+        author: {
+          name: String,
+
+          profilePhotoUrl: String,
+          isMentor: Boolean,
+        },
+        imageUrl: String,
       },
     ],
   },
