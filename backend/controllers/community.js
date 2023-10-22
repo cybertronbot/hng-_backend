@@ -24,17 +24,15 @@ const createCommunity = async (req, res) => {
     slug,
     name,
     description,
-    id,
     MemberName,
-    IsMentor,
-    About,
-    Note,
-    Topic,
-    Topicc,
-    DiscussionPoster,
-    ProfilePhoto,
-   ImageUrl,
-   Namee,
+    MemberIsMentor,
+    MemberPhotoUrl,
+    DiscussionTopics,
+    DiscussionNote,
+    AuthorName,
+    AuthorProfilePhoto,
+    AuthorIsMentor,
+    DiscussionImageUrl
   } = req.body;
 
   let emptyFields = [];
@@ -54,27 +52,25 @@ const createCommunity = async (req, res) => {
       description,
       members: [
         {
-          id,
-          memberName: MemberName,
-          isMentor: IsMentor,
-          about: About,
-          imageUrl: ImageUrl,
+          name: MemberName,
+          isMentor: MemberIsMentor,
+  
+          profilePhotoUrl: MemberPhotoUrl,
         },
       ],
-      discussion: [
+      discussions: [
         {
-          id,
-          topic: Topic,
-          discussionPoster: DiscussionPoster,
-          note: Note,
-        },
-      ],
-      author: [
-        {
-          name: Namee,
-          topic: Topicc,
-          profilePhoto: ProfilePhoto,
-          isMentor:IsMentor
+          topic: DiscussionTopics,
+  
+          note: DiscussionNote,
+  
+          author: {
+            name: AuthorName,
+  
+            profilePhoto: AuthorProfilePhoto,
+            isMentor: AuthorIsMentor,
+          },
+          imageUrl: DiscussionImageUrl,
         },
       ],
     });
