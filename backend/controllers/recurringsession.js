@@ -26,7 +26,7 @@ const getRecurringSession = async (req, res) => {
 };
 
 const createRecurringSessions = async (req, res) => {
-    const { sessionName, description, occurence, numberOfSession, relevantTopics, sessionType, time, date, sessionUrl, tag,sessionState,duration } = req.body;
+    const { mentorId,sessionName, description, occurence, numberOfSession, relevantTopics, sessionType, time, date, sessionUrl, tag,sessionState,duration } = req.body;
 
     let emptyFields = [];
 
@@ -80,6 +80,7 @@ const createRecurringSessions = async (req, res) => {
 
     try {
         const recurringsession = await RecurringSession.create({
+            mentorId,
             sessionName,
             description,
             occurence,

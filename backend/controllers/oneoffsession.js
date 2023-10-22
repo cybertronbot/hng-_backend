@@ -24,7 +24,7 @@ const getOneOffSession = async (req, res) => {
 };
 
 const createOneOffSessions = async (req, res) => {
-    const { sessionName, description, time, date, relevantTopics, sessionUrl, tag, duration, sessionType,sessionState } = req.body;
+    const { mentorId,sessionName, description, time, date, relevantTopics, sessionUrl, tag, duration, sessionType,sessionState } = req.body;
 
     let emptyFields = [];
 
@@ -64,7 +64,7 @@ const createOneOffSessions = async (req, res) => {
 
     try {
         const oneoffsession = await OneOffSession.create({
-            sessionName,
+            mentorId,sessionName,
             description,
             time,
             date,
