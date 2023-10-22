@@ -24,7 +24,7 @@ const getFreeSession = async (req, res) => {
 };
 
 const createFreeSessions = async (req, res) => {
-    const { mentorId,sessionName, description, attendeesLimit, time, date, relevantTopics, sessionUrl, tag, duration,sessionState } = req.body;
+    const { sessionName, description, attendeesLimit, time, date, relevantTopics, sessionUrl, tag, duration,sessionState } = req.body;
 
     let emptyFields = [];
 
@@ -64,7 +64,7 @@ const createFreeSessions = async (req, res) => {
 
     try {
         const freesession = await FreeSession.create({
-            mentorId,sessionName,
+            sessionName,
             description,
             attendeesLimit,
             time,

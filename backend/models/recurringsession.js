@@ -4,10 +4,7 @@ const Schema = mongoose.Schema;
 
 const recurringSchema = new Schema(
     {
-        mentorId: {
-            type: String,
-            required: false,
-          },sessionName: {
+       sessionName: {
             type: String,
             required: true,
         },

@@ -4,10 +4,7 @@ const Schema = mongoose.Schema;
 
 const freesessionSchema = new Schema(
     {
-        mentorId: {
-            type: String,
-            required: false,
-          },sessionName: {
+        sessionName: {
             type: String,
             required: true,
         },

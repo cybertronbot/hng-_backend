@@ -4,10 +4,7 @@ const Schema = mongoose.Schema;
 
 const oneoffsessionSchema = new Schema(
     {
-        mentorId: {
-            type: String,
-            required: false,
-          },sessionName: {
+        sessionName: {
             type: String,
             required: true,
         },
