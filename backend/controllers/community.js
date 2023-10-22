@@ -24,15 +24,8 @@ const createCommunity = async (req, res) => {
     slug,
     name,
     description,
-    MemberName,
-    MemberIsMentor,
-    MemberPhotoUrl,
-    DiscussionTopics,
-    DiscussionNote,
-    AuthorName,
-    AuthorProfilePhoto,
-    AuthorIsMentor,
-    DiscussionImageUrl
+    members,
+    discussions,
   } = req.body;
 
   let emptyFields = [];
@@ -48,31 +41,10 @@ const createCommunity = async (req, res) => {
   try {
     const community = await Community.create({
       slug,
-      name,
-      description,
-      members: [
-        {
-          name: MemberName,
-          isMentor: MemberIsMentor,
-  
-          profilePhotoUrl: MemberPhotoUrl,
-        },
-      ],
-      discussions: [
-        {
-          topic: DiscussionTopics,
-  
-          note: DiscussionNote,
-  
-          author: {
-            name: AuthorName,
-  
-            profilePhoto: AuthorProfilePhoto,
-            isMentor: AuthorIsMentor,
-          },
-          imageUrl: DiscussionImageUrl,
-        },
-      ],
+    name,
+    description,
+    members,
+    discussions
     });
     res.status(200).json(community);
   } catch (error) {
