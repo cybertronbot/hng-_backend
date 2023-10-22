@@ -63,9 +63,7 @@ const createRecurringSessions = async (req, res) => {
         emptyFields.push("tag");
     }
   
-    if (!sessionState) {
-        emptyFields.push("sessionState");
-    }
+    
     if (!duration) {
         emptyFields.push("duration");
     }
