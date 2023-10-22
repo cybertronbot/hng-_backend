@@ -6,7 +6,7 @@ const recurringSchema = new Schema(
     {
         mentorId: {
             type: String,
-            required: true,
+            required: false,
           },sessionName: {
             type: String,
             required: true,
